@@ -5,6 +5,6 @@ module ApplicationHelper
   end
 
   def authenticate_user!
-  	current_user ? true : redirect_to(root_path)
+  	redirect_to(root_path) unless current_user
   end
 end

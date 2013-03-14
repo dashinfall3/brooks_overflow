@@ -1,5 +1,5 @@
 class AnswersController < ApplicationController
-
+  respond_to :js
   def new
     @answer = Answer.new
   end
@@ -32,17 +32,21 @@ class AnswersController < ApplicationController
         format.html { redirect_to question_path(@answer.question), :notice=> "You comment on that answer"}
         format.js
       else
+        puts "there is an error"
         flash[:error] = "you no comment on dat answer"
-        @question = @answer.question
-        render 'questions/show'
+        #how do you pass in variables with errors?
+        # redirect_to question_path(@answer.question)
       end
     end
   end
   
   def votes
+    # render :json => {}, :status => :unauthorized and return unless current_user
     @answer = Answer.find(params[:id])
     @vote = @answer.votes.build({:user_id => current_user.id})
     if @vote.save
+      @answer.vote_count += 1
+      @answer.save
       flash[:success] = "What a good citizen. You voted."
       redirect_to question_path(@answer.question)
     else

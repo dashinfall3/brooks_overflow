@@ -1,0 +1,17 @@
+<div class="answer">
+  <div class = "row-fluid ">
+    <% if answer.winner == true %>
+      <div class="span1 winner_badge">
+        Winner!!!
+      </div>
+    <% end %>
+    <div class = "span1">
+      <span class="vote-count"><%=answer.votes.count %> votes</span> <br>
+    </div>
+    <div class="span10">
+    <%=answer.content %> 
+    <br>posted <%=time_ago_in_words(answer.created_at)%> ago in response to <%= link_to answer.question.content, question_path(answer.question) %>
+    </div>
+      
+  </div>
+</div>

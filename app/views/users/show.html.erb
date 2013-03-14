@@ -19,4 +19,5 @@
 <h2><%=@user.username%>'s questions</h2>
 <%= render :partial => "shared/question", :collection => @questions %>
 
-
+<h2><%=@user.username%>'s answers</h2>
+<%= render :partial => "answer", :collection => @user.answers %>

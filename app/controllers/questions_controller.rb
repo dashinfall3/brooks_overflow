@@ -21,7 +21,7 @@ class QuestionsController < ApplicationController
   def show
     @question = Question.find(params[:id])
     @answer = Answer.new
-    @answers = @question.answers
+    @answers = @question.answers.vote_sort
     @comment = Comment.new
     @vote = Vote.new
     @comments = @question.comments.order("created_at ASC")

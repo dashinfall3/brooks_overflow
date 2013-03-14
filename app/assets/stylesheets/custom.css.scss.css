@@ -13,10 +13,11 @@ body {
 }
 
 .comment {
-  padding: 10px;
-  background: #eee;
+  padding: 5px;
+  border-bottom: 1px solid #eee;
+  border-top: 1px solid #eee;
   border-radius: 5px;
-  margin: 10px;
+  font-size: 10px;
 }
 
 textarea {
@@ -30,4 +31,26 @@ textarea {
 .winner_badge {
   padding: 5px;
   background: lightblue;
+}
+
+.answer {
+  padding: 10px;
+  background: #eee;
+  margin: 10px 0 5px 0;
+}
+
+#new_comment input[type="text"] {
+  font-size: 10px;
+  height: 15px;
+  padding: 2px;
+}
+
+#new_comment input[type="submit"] {
+  padding: 1px;
+  font-size: 10px;
+  height: 15px;
+}
+
+form {
+  margin: 0 0 10px 0;
 }
