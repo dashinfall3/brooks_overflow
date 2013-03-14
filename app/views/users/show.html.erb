@@ -1,0 +1,22 @@
+<div class="row-fluid hero-unit">
+  <div class="span3">
+    <h1><%= @user.username %></h1>
+  </div>
+  <div class="span3">
+    <h2><%=@user.questions.count%><h2>
+    questions
+  </div>
+  <div class="span3">
+    <h2><%=@user.answers.count%><h2>
+    answers
+  </div>
+  <div class="span3">
+    <h2><%=@wins_count%><h2>
+    wins
+  </div>
+</div>
+
+<h2><%=@user.username%>'s questions</h2>
+<%= render :partial => "shared/question", :collection => @questions %>
+
+

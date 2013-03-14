@@ -1,0 +1,29 @@
+<% if current_user %>
+  <h1>Questions</h1>
+  <%= render :partial => "shared/question", :collection => @questions %>
+<% else %>
+  <div class="hero-unit">
+    <h1> Not your Gma's question site </h1>
+    <% if flash[:error] %>
+      <p class='success'><%=h flash[:error] %></p>
+    <% end %>
+    <h3> Sign in </h3>
+    <%= form_for(:session, url: sessions_path) do |f| %>
+      <%=f.text_field :email, :placeholder => "email"%>
+      <%=f.password_field :password, :placeholder => "password"%>
+      <%=f.submit "sign in"%>
+    <%end%>
+
+    <h3> Sign up </h3>
+    <%= form_for @user do |f| %>
+      <%= f.text_field :email, :placeholder => "email" %>
+      <%= f.text_field :username, :placeholder => "username" %>
+      <%= f.password_field :password, :placeholder => "password"%>
+      <%= f.submit "Register User" %>
+    <% end %>
+  </div>
+  <h2>Here them questions </h2>
+  <%= render :partial => "shared/question", :collection => @questions %>
+<% end %>
+
+

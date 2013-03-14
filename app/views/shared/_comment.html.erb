@@ -1,0 +1,4 @@
+<div class="comment">
+  Comment: <%= comment.content %>
+  <div>Posted by <%=link_to comment.commentable.user.username, user_path(comment.commentable.user)%> <%= time_ago_in_words(comment.created_at)  %> ago</div>
+</div>

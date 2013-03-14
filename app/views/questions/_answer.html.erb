@@ -1,0 +1,18 @@
+<div class = "row-fluid ">
+  <div class = "span1">
+    <%= form_for @vote, :url => votes_answer_path(answer) do |f| %>
+      <%= f.submit "vote #{answer.votes.count}" %>
+    <% end %>
+  </div>
+  <div class="span11">
+  <%=answer.content %> 
+  <br>posted <%=time_ago_in_words(answer.created_at)%> ago
+  </div>
+    
+</div>
+
+<%= form_for @comment, :url => comments_answer_path(answer) do |f| %>
+  <%= f.text_field :content, :placeholder => "comment" %>
+  <%= f.submit %>
+<% end %>
+<%= render :partial => "shared/comment", :collection => answer.comments %>

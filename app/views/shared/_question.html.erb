@@ -1,0 +1,12 @@
+
+<div class="row-fluid comment" >
+  <div class="span1"><%=question.votes.count%></div>
+  <div class="span10">
+    <div>
+        <%= link_to question.content, question_path(question) %>
+    </div>
+    <div> 
+        Asked by: <%= link_to question.user.username, user_path(question.user) %>
+    </div>
+  </div>
+</div>

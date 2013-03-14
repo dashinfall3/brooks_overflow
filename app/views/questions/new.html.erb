@@ -1,0 +1,9 @@
+<% if flash[:error] %>
+  <p class='success'><%=h flash[:error] %></p>
+<% end %>
+<%= form_for @question do |f| %>
+  <%= f.text_field :content %>
+  <%= f.submit %>
+<% end %>
+
+<%=current_user.username%>

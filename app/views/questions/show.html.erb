@@ -1,0 +1,27 @@
+<% flash.each do |key, value| %>
+  <div class="alert alert-<%= key %>"><%=value%></div>
+<% end %>
+
+<h2><%=@question.content%></h2>  
+
+
+<%#= form_for [@question, @comment] do |f| %>
+<%= form_for @comment, :url => comments_question_path(@question) do |f| %>
+  <%= f.text_field :content, :placeholder => "comment" %>
+  <%= f.submit %>
+<% end %>
+
+<%= render :partial => "shared/comment", :collection => @question.comments %>
+
+<h2>Answers</h2>
+
+<div>
+  <%= render :partial => 'answer', :collection => @answers %>
+</div>
+
+<div style="margin: 100px 0 0 0 ">
+<%= form_for @answer do |f| %>
+  <%= f.hidden_field :question_id, :value => @question.id %>
+  <%= f.text_area :content, :placeholder => "Add answer", :rows => '10', :cols => '5' %>
+  <div><%= f.submit %>
+<% end %>

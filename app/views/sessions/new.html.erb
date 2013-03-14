@@ -1,0 +1,9 @@
+Hey this is a session form
+<% if flash[:error] %>
+  <p class='success'><%=h flash[:error] %></p>
+<% end %>
+<%= form_for(:session, url: sessions_path) do |f| %>
+  <%=f.text_field :email, :placeholder => "email"%>
+  <%=f.password_field :password, :placeholder => "password"%>
+  <%=f.submit "sign in"%>
+<%end%>
