@@ -1,5 +1,6 @@
 class QuestionsController < ApplicationController
-
+  before_filter :authenticate_user!, :except => [:show]
+  
   def new
     @question = Question.new
   end
@@ -23,6 +24,7 @@ class QuestionsController < ApplicationController
     @answers = @question.answers
     @comment = Comment.new
     @vote = Vote.new
+    @comments = @question.comments.order("created_at ASC")
   end
 
   def edit
@@ -34,22 +36,23 @@ class QuestionsController < ApplicationController
   def comments
     @question = Question.find(params[:id])
     @comment = @question.comments.build(params[:comment])
-    if @comment.save
-      flash[:success] = "You commented. You're ridiculous"
-      redirect_to question_path(@question)
-    else
-      render 'questions/show'
+    respond_to do |format|
+      if @comment.save
+        format.html { redirect_to question_path(@question), notice: "comment created."}
+        format.js
+      else
+        render 'questions/show'
+      end
     end
   end
 
   def votes
-    @question = question.find(params[:id])
-    @vote = @answer.votes.build({:user_id => current_user.id})
+    @question = Question.find(params[:id])
+    @vote = @question.votes.build({:user_id => current_user.id})
     if @vote.save
       flash[:success] = "What a good citizen. You voted."
-      redirect_to question_path(@answer.question)
+      redirect_to question_path(@question)
     else
-      @question = @answer.question
       render 'question/show'
     end
   end

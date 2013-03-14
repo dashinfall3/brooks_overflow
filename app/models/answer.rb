@@ -4,4 +4,6 @@ class Answer < ActiveRecord::Base
   belongs_to :user
   has_many :comments, :as => :commentable
   has_many :votes, :as => :voteable
+
+  # scope :vote_sort, Answer.select("answers.*, COUNT(votes.id)").joins(:votes).group(answers.*).order("votes.id")
 end

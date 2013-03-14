@@ -6,13 +6,17 @@ class AnswersController < ApplicationController
 
   def create
     @answer = current_user.answers.build(params[:answer])
-    if @answer.save
-      flash[:success] = "your answer has been added"
-      redirect_to question_path(@answer.question)
-    else
-      flash[:error] = "yo  your answer no worky"
-      @question = @answer.question
-      render 'questions/show'
+    respond_to do |format|
+      if @answer.save
+        @vote = Vote.new
+        @comment = Comment.new
+        @question = @answer.question
+        format.js
+      else
+        flash[:error] = "yo  your answer no worky"
+        @question = @answer.question
+        render 'questions/show'
+      end
     end
   end
 
@@ -23,13 +27,15 @@ class AnswersController < ApplicationController
   def comments 
     @answer = Answer.find(params[:id])
     @comment = @answer.comments.build(params[:comment])
-    if @comment.save
-      flash[:success] = "you comment on dat answer"
-      redirect_to question_path(@answer.question)
-    else
-      flash[:error] = "you no comment on dat answer"
-      @question = @answer.question
-      render 'questions/show'
+    respond_to do |format|
+      if @comment.save
+        format.html { redirect_to question_path(@answer.question), :notice=> "You comment on that answer"}
+        format.js
+      else
+        flash[:error] = "you no comment on dat answer"
+        @question = @answer.question
+        render 'questions/show'
+      end
     end
   end
   
@@ -42,6 +48,19 @@ class AnswersController < ApplicationController
     else
       flash[:error] = "oops you probably already voted"
       redirect_to question_path(@answer.question)
+    end
+  end
+
+  def declare_winner
+    @answer = Answer.find(params[:id])
+    respond_to do |format|
+      if @answer.question.has_winner?
+        flash.now["you already declared a winner silly goose"]
+      else
+        @answer.winner = true
+        @answer.save
+        format.js
+      end
     end
   end
 

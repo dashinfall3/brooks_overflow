@@ -1,18 +1,33 @@
-<div class = "row-fluid ">
-  <div class = "span1">
-    <%= form_for @vote, :url => votes_answer_path(answer) do |f| %>
-      <%= f.submit "vote #{answer.votes.count}" %>
+<div class="answer">
+  <div class = "row-fluid ">
+    <% unless @question.has_winner? %>
+      <div class = "span1">
+        <%= link_to "winner", declare_winner_answer_path(answer), :remote => true, :method => 'post' %>
+      </div>
     <% end %>
+    <% if answer.winner == true %>
+      <div class="span1 winner_badge">
+        Winner!!!
+      </div>
+    <% end %>
+    <div class = "span1">
+      <span class="vote-count"><%=answer.votes.count %></span> <br>
+      <%= form_for @vote, :url => votes_answer_path(answer), :remote => true do |f| %>
+        <%= f.submit "vote" %>
+      <% end %>
+    </div>
+    <div class="span10">
+    <%=answer.content %> 
+    <br>posted <%=time_ago_in_words(answer.created_at)%> ago
+    </div>
+      
   </div>
-  <div class="span11">
-  <%=answer.content %> 
-  <br>posted <%=time_ago_in_words(answer.created_at)%> ago
-  </div>
-    
-</div>
 
-<%= form_for @comment, :url => comments_answer_path(answer) do |f| %>
-  <%= f.text_field :content, :placeholder => "comment" %>
-  <%= f.submit %>
-<% end %>
-<%= render :partial => "shared/comment", :collection => answer.comments %>
+  <%= form_for @comment, :url => comments_answer_path(answer), :remote => true do |f| %>
+    <%= f.text_field :content, :placeholder => "comment" %>
+    <%= f.submit %>
+  <% end %>
+  <div class="answer-comments">
+    <%= render :partial => "shared/comment", :collection => answer.comments %>
+  </div>
+</div>

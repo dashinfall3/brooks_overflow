@@ -26,3 +26,8 @@ textarea {
 .container {
   padding: 10px;
 }
+
+.winner_badge {
+  padding: 5px;
+  background: lightblue;
+}
