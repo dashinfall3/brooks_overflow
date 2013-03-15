@@ -10,6 +10,8 @@ gem 'bcrypt-ruby'
 
 gem 'bootstrap-sass'
 
+gem 'annotate'
+
 group :development, :test do
   gem 'rspec-rails'
 end

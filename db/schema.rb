@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130314165338) do
+ActiveRecord::Schema.define(:version => 20130314232914) do
 
   create_table "answers", :force => true do |t|
     t.text     "content"
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(:version => 20130314165338) do
     t.string   "voteable_type"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+    t.integer  "value"
   end
 
 end

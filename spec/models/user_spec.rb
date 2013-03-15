@@ -18,8 +18,6 @@ describe User do
 		it { should_not allow_value("blah").for(:username)}
 	end
 
-	it { should be_valid }
-
 	describe "when username is not present" do
 		before { user.username = " "}
 		it { should_not be_valid }

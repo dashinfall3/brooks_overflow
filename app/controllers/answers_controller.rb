@@ -43,7 +43,7 @@ class AnswersController < ApplicationController
   def votes
     # render :json => {}, :status => :unauthorized and return unless current_user
     @answer = Answer.find(params[:id])
-    @vote = @answer.votes.build({:user_id => current_user.id})
+    @vote = @answer.votes.build({:user_id => current_user.id}.merge(:value => 1))
     if @vote.save
       @answer.vote_count += 1
       @answer.save

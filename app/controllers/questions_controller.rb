@@ -1,5 +1,5 @@
 class QuestionsController < ApplicationController
-  before_filter :authenticate_user!, :except => [:show]
+  # before_filter :authenticate_user!, :except => [:show]
   
   def new
     @question = Question.new
@@ -27,12 +27,6 @@ class QuestionsController < ApplicationController
     @comments = @question.comments.order("created_at ASC")
   end
 
-  def edit
-  end
-
-  def update
-  end
-
   def comments
     @question = Question.find(params[:id])
     @comment = @question.comments.build(params[:comment])
@@ -48,7 +42,7 @@ class QuestionsController < ApplicationController
 
   def votes
     @question = Question.find(params[:id])
-    @vote = @question.votes.build({:user_id => current_user.id})
+    @vote = @question.votes.build({:user_id => current_user.id}.merge(:value => 1))
     if @vote.save
       flash[:success] = "What a good citizen. You voted."
       redirect_to question_path(@question)
